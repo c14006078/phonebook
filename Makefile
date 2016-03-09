@@ -1,7 +1,7 @@
 CC ?= gcc
 CFLAGS_common ?= -Wall -std=gnu99
 CFLAGS_orig = -O0
-CFLAGS_opt  = -O0
+CFLAGS_opt  = -O0 -D OPT_VER
 
 EXEC = phonebook_orig phonebook_opt
 all: $(EXEC)
@@ -14,7 +14,7 @@ phonebook_orig: $(SRCS_common) phonebook_orig.c phonebook_orig.h
 		$(SRCS_common) $@.c
 
 phonebook_opt: $(SRCS_common) phonebook_opt.c phonebook_opt.h
-	$(CC) $(CFLAGS_common) $(CFLAGS_opt) \
+	$(CC) $(CFLAGS_common) $(CFLAGS_opt)\
 		-DIMPL="\"$@.h\"" -o $@ \
 		$(SRCS_common) $@.c
 
@@ -23,9 +23,11 @@ run: $(EXEC)
 	watch -d -t "./phonebook_orig && echo 3 | sudo tee /proc/sys/vm/drop_caches"
 
 cache-test: $(EXEC)
+	echo 1 | sudo tee /proc/sys/vm/drop_caches
 	perf stat --repeat 100 \
 		-e cache-misses,cache-references,instructions,cycles \
 		./phonebook_orig
+	echo 1 | sudo tee /proc/sys/vm/drop_caches
 	perf stat --repeat 100 \
 		-e cache-misses,cache-references,instructions,cycles \
 		./phonebook_opt

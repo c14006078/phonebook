@@ -3,6 +3,9 @@
 
 #define MAX_LAST_NAME_SIZE 16
 
+/*choose one prime number*/
+#define HASH_BUCKET 42737
+
 /* TODO: After modifying the original version, uncomment the following
  * line to set OPT properly */
 #define OPT 1
@@ -25,7 +28,19 @@ typedef struct __PHONE_BOOK_ENTRY {
     struct __PHONE_BOOK_ENTRY *pNext;
 } entry;
 
-entry *findName(char lastname[], entry *pHead);
-entry *append(char lastName[], entry *e);
+typedef struct _hash_bucket{
+	entry *pNext;
+}hash_bucket;
+
+typedef struct _hash_table{
+	 hash_bucket  *bucket[HASH_BUCKET];
+}hash_table;
+
+typedef unsigned int hashIndex;
+
+entry *findName(char lastname[], hash_table *h);
+hash_table *append(char lastName[], hash_table *h);
+hashIndex hash_function( char lastname[]);
+hash_table *new_hash();
 
 #endif
