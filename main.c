@@ -43,31 +43,20 @@ int main(int argc, char *argv[])
     e = pHead;
     e->pNext = NULL;
 
-#if defined(OPT)
-    hash_table *pHashHead = new_hash();
-#endif
-
-    /********init Hash_Table**********
-
-    Hash_Table * hash_table_pt = (* Hash_Table) malloc (sizeof( Hash_Table));
-    
-    int h = 0;
-    for( h = 0; h < Hash_Table; h++)
-	hash_table_pt->bucket[h]->pNext = NULL;
-
-    Hash_table *e = hash_table_pt;*/
-
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
     clock_gettime(CLOCK_REALTIME, &start);
+#if defined(OPT)
+    hash_table *pHashHead = new_hash();
+#endif
     while (fgets(line, sizeof(line), fp)) {
         while (line[i] != '\0')
             i++;
         line[i - 1] = '\0';
         i = 0;
 #if defined(OPT)
-	pHashHead = append( line, pHashHead);
+        pHashHead = append( line, pHashHead);
 #else
         e = append(line, e);
 #endif
@@ -83,7 +72,7 @@ int main(int argc, char *argv[])
 
     /* the givn last name to find */
     char input[MAX_LAST_NAME_SIZE] = "zyxel";
-    
+
     e = pHead;
     /*e = hashtable;*/
 #if defined(OPT)
