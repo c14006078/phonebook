@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 #endif
     clock_gettime(CLOCK_REALTIME, &start);
 #if defined(OPT)
-    hash_table *pHashHead = new_hash();
+      hash_table *pHashHead = new_hash();
 #endif
     while (fgets(line, sizeof(line), fp)) {
         while (line[i] != '\0')

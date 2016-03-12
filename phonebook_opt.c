@@ -10,9 +10,7 @@
 entry *findName(char lastName[], hash_table *ht)
 {
     hashIndex hash_value = hash_function( lastName);
-    printf("%d\n",hash_value);
     entry *ep = ht->bucket[hash_value]->pNext;
-    printf("%d\n",(ep == NULL));
     while( ep != NULL) {
         if (strcasecmp(lastName, ep->lastName) == 0)
             return ep;
@@ -28,7 +26,8 @@ hash_table *append(char lastName[], hash_table *e)
     if(!ep) {
         e->bucket[hash_value]->pNext = (entry *) malloc (sizeof(entry));
         ep = e->bucket[hash_value]->pNext;
-    } else {
+    }
+    else {
         while( ep->pNext != NULL) {
             ep = ep->pNext;
         }
