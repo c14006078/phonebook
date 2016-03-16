@@ -4,7 +4,7 @@
 #define MAX_LAST_NAME_SIZE 16
 
 /*choose one prime number*/
-#define HASH_BUCKET 42737
+#define HASH_BUCKET 427399
 
 /* TODO: After modifying the original version, uncomment the following
  * line to set OPT properly */
@@ -30,6 +30,7 @@ typedef struct __PHONE_BOOK_ENTRY {
 
 typedef struct _hash_bucket {
     entry *pNext;
+    entry *pLast;
 } hash_bucket;
 
 typedef struct _hash_table {

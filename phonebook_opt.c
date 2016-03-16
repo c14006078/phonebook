@@ -26,13 +26,13 @@ hash_table *append(char lastName[], hash_table *e)
     if(!ep) {
         e->bucket[hash_value]->pNext = (entry *) malloc (sizeof(entry));
         ep = e->bucket[hash_value]->pNext;
+        e->bucket[hash_value]->pLast = ep;
     }
     else {
-        while( ep->pNext != NULL) {
-            ep = ep->pNext;
-        }
+        ep = e->bucket[hash_value]->pLast;
         ep->pNext = (entry *) malloc (sizeof(entry));
         ep = ep->pNext;
+        e->bucket[hash_value]->pLast = ep;
     }
     strcpy(ep->lastName, lastName);
     ep->pNext = NULL;
@@ -46,6 +46,7 @@ hash_table *new_hash()
     for( i = 0; i < HASH_BUCKET; i++) {
         ht->bucket[i] = (hash_bucket *) malloc( sizeof (hash_bucket));
         ht->bucket[i] ->pNext = NULL;
+        ht->bucket[i] ->pLast = NULL;
     }
     return ht;
 }
